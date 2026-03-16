@@ -19,14 +19,16 @@ ThreatLens AI is a high-performance, AI-driven cybersecurity analytics platform 
 
 ## 📂 Project Structure
 
+The project is structured as a monorepo containing three independent Next.js applications:
+
 ```bash
 threatlens-ai/
-├── app/                  # Main App Router (Pages: Dashboard, Analyzer, Chat, Reports)
-├── components/           # Reusable UI Components & Layouts
-├── lib/                  # Core Business Logic (AI Engine, Simulator, Utils)
-├── pages/api/            # Serverless API Endpoints
-└── database/             # Schema definitions and data models
+├── apps/
+│   ├── office-demo/        # Corporate login portal
+│   ├── threatlens-ai/      # Monitoring dashboard & security platform
+│   └── attack-simulator/   # Hacker attack console
 ```
+Each application is self-contained and ready for independent Vercel deployment.
 
 ## ⚡ Quick Start
 
