@@ -37,12 +37,22 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 isSidebarOpen ? "w-64 translate-x-0" : "w-20 -translate-x-full md:translate-x-0"
             )}>
                 <div className="flex flex-col h-full px-3 py-4 overflow-y-auto">
-                    <Link href="/" className="flex items-center ps-2.5 mb-10">
-                        <ShieldAlert className="h-8 w-8 text-cyan-500 mr-2" />
-                        <span className={cn("self-center text-xl font-semibold whitespace-nowrap text-white", !isSidebarOpen && "hidden")}>
-                            ThreatLens AI
-                        </span>
-                    </Link>
+                    <div className="flex items-center justify-between mb-10 ps-2.5">
+                        <Link href="/" className="flex items-center">
+                            <ShieldAlert className="h-8 w-8 text-cyan-500 mr-2" />
+                            <span className={cn("self-center text-xl font-semibold whitespace-nowrap text-white", !isSidebarOpen && "hidden")}>
+                                ThreatLens AI
+                            </span>
+                        </Link>
+                        {isSidebarOpen && (
+                            <button
+                                onClick={() => setIsSidebarOpen(false)}
+                                className="md:hidden p-2 text-slate-400 hover:text-white"
+                            >
+                                <X size={20} />
+                            </button>
+                        )}
+                    </div>
 
                     <ul className="space-y-4 font-medium flex-1">
                         {sidebarItems.map((item) => (

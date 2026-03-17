@@ -59,7 +59,14 @@ export default function HackerSimulator() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-emerald-500 font-mono p-4 md:p-8 flex flex-col selection:bg-emerald-500/30">
+        <div className="min-h-screen bg-black text-emerald-500 font-mono p-4 md:p-8 flex flex-col selection:bg-emerald-500/30 relative">
+            <a
+                href="https://threatmointors.vercel.app"
+                className="inline-flex items-center space-x-2 text-emerald-900 hover:text-emerald-500 transition-all text-[10px] font-bold uppercase tracking-widest border border-emerald-900/30 px-3 py-1.5 rounded-lg mb-6 w-fit"
+            >
+                <ShieldAlert size={14} />
+                <span>Back to Monitoring Hub</span>
+            </a>
             {/* Header */}
             <div className="flex items-center justify-between mb-8 border-b border-emerald-900/50 pb-4">
                 <div className="flex items-center space-x-3">

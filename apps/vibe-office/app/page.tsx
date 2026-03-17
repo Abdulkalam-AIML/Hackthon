@@ -41,7 +41,14 @@ export default function OfficeLogin() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 font-sans">
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 font-sans relative">
+            <a
+                href="https://threatmointors.vercel.app"
+                className="absolute top-6 left-6 flex items-center space-x-2 text-slate-400 hover:text-blue-600 transition-colors text-sm font-medium bg-white px-4 py-2 rounded-full shadow-sm border border-slate-100"
+            >
+                <Shield size={16} />
+                <span>Back to Monitoring</span>
+            </a>
             <div className="w-full max-w-md">
                 {/* Branding */}
                 <div className="text-center mb-10">
