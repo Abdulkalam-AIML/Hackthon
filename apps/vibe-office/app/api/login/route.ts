@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
         };
 
         // Send log to ThreatLens AI API
-        const threatLensApi = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+        const threatLensApi = process.env.NEXT_PUBLIC_API_URL || 'https://threatmointors.vercel.app/api';
 
         try {
             await fetch(`${threatLensApi}/log`, {

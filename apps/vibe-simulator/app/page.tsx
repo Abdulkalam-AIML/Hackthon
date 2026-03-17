@@ -32,7 +32,7 @@ export default function HackerSimulator() {
             await new Promise(r => setTimeout(r, 400 + Math.random() * 600));
 
             try {
-                const officeUrl = process.env.NEXT_PUBLIC_OFFICE_URL || 'http://localhost:3000';
+                const officeUrl = process.env.NEXT_PUBLIC_OFFICE_URL || 'https://vibe-office.vercel.app';
                 const res = await fetch(`${officeUrl}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
