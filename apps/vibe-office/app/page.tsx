@@ -27,7 +27,9 @@ export default function OfficeLogin() {
             const data = await res.json();
 
             if (res.ok) {
-                router.push('/office/dashboard');
+                setEmail('');
+                setPassword('');
+                setError('Login Successful (Demo)');
             } else {
                 setError(data.message || 'Invalid credentials');
             }

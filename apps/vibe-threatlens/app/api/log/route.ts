@@ -1,53 +1,64 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ThreatLensAI, LogEntry } from '@/lib/ai-engine';
 
-// In-memory store for demo session (In real app, use Redis/Postgres)
 let globalLogs: LogEntry[] = [];
+
+// Helper to add CORS to response
+function addCORS(res: NextResponse) {
+    res.headers.set('Access-Control-Allow-Origin', '*');
+    res.headers.set('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+    res.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    return res;
+}
+
+export async function OPTIONS() {
+    return addCORS(new NextResponse(null, { status: 204 }));
+}
 
 export async function POST(req: NextRequest) {
     try {
         const log: LogEntry = await req.json();
-
-        // Add to our global list
         globalLogs.push(log);
 
-        // Run AI analysis on the recent window
-        const threats = ThreatLensAI.analyze(globalLogs.slice(-100));
+        // Keep only last 200 logs to stay memory efficient
+        if (globalLogs.length > 200) globalLogs.shift();
+
+        const threats = ThreatLensAI.analyze(globalLogs);
         const riskScore = ThreatLensAI.calculateSystemRisk(threats);
 
-        const response = NextResponse.json({
+        return addCORS(NextResponse.json({
             status: 'received',
             threatCount: threats.length,
             currentRiskScore: riskScore
-        }, { status: 200 });
-
-        // Add CORS headers for multi-app support
-        response.headers.set('Access-Control-Allow-Origin', '*');
-        response.headers.set('Access-Control-Allow-Methods', 'POST, GET, DELETE, OPTIONS');
-        response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
-
-        return response;
+        }));
     } catch (error) {
-        return NextResponse.json({ message: 'Invalid log format' }, { status: 400 });
+        return addCORS(NextResponse.json({ message: 'Error processing log' }, { status: 400 }));
     }
 }
 
-export async function OPTIONS() {
-    const response = new NextResponse(null, { status: 204 });
-    response.headers.set('Access-Control-Allow-Origin', '*');
-    response.headers.set('Access-Control-Allow-Methods', 'POST, GET, DELETE, OPTIONS');
-    response.headers.set('Access-Control-Allow-Headers', 'Content-Type');
-    return response;
-}
-
 export async function GET() {
-    return NextResponse.json({
+    // If empty dashboard, add one "System Initialized" log
+    if (globalLogs.length === 0) {
+        globalLogs.push({
+            timestamp: new Date().toISOString(),
+            ip_address: '127.0.0.1',
+            endpoint: '/system',
+            status: 200,
+            login_attempts: 0
+        });
+    }
+
+    const threats = ThreatLensAI.analyze(globalLogs);
+    const riskScore = ThreatLensAI.calculateSystemRisk(threats);
+
+    return addCORS(NextResponse.json({
         logs: globalLogs,
-        count: globalLogs.length
-    });
+        threats: threats,
+        riskScore: riskScore
+    }));
 }
 
 export async function DELETE() {
     globalLogs = [];
-    return NextResponse.json({ message: 'Logs cleared' });
+    return addCORS(NextResponse.json({ message: 'Reset successful' }));
 }

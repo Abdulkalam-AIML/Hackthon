@@ -1,5 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Helper to add CORS to response
+function addCORS(res: NextResponse) {
+    res.headers.set('Access-Control-Allow-Origin', '*');
+    res.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    return res;
+}
+
+export async function OPTIONS() {
+    return addCORS(new NextResponse(null, { status: 204 }));
+}
+
 export async function POST(req: NextRequest) {
     try {
         const { email, password } = await req.json();
@@ -32,11 +44,11 @@ export async function POST(req: NextRequest) {
         }
 
         if (isSuccess) {
-            return NextResponse.json({ message: 'Login successful' }, { status: 200 });
+            return addCORS(NextResponse.json({ message: 'Login successful' }, { status: 200 }));
         } else {
-            return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
+            return addCORS(NextResponse.json({ message: 'Invalid credentials' }, { status: 401 }));
         }
     } catch (error) {
-        return NextResponse.json({ message: 'Server error' }, { status: 500 });
+        return addCORS(NextResponse.json({ message: 'Server error' }, { status: 500 }));
     }
 }
