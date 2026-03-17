@@ -18,7 +18,7 @@ import {
 import { cn } from '@/lib/utils';
 
 const sidebarItems = [
-    { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
+    { name: 'Dashboard', icon: LayoutDashboard, href: '/' },
     { name: 'Logs', icon: Search, href: '/analyzer' },
     { name: 'Alerts', icon: FileText, href: '/reports' },
     { name: 'Threat Intelligence', icon: MessageSquare, href: '/chat' },
