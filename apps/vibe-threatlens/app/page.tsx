@@ -80,7 +80,7 @@ export default function DashboardPage() {
         );
     }
 
-    const { riskScore, threats, logs } = data;
+    const { riskScore, threats, logs } = data || { riskScore: 0, threats: [], logs: [] };
 
     // Prepare chart data
     const timelineData = threats.map((t: Threat, i: number) => ({
