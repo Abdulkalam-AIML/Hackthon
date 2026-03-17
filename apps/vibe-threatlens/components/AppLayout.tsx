@@ -64,13 +64,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     <div className={cn("px-2 py-4 mt-4 border-t border-slate-800", !isSidebarOpen && "hidden")}>
                         <div className="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-4 px-2">Demo Ecosystem</div>
                         <div className="space-y-2">
-                            <Link href="/office/login" target="_blank" className="flex items-center space-x-3 p-2 rounded-lg bg-blue-500/5 border border-blue-500/10 text-blue-400 hover:bg-blue-500/10 transition-all group">
+                            <Link href="https://vibe-office.vercel.app" target="_blank" className="flex items-center space-x-3 p-2 rounded-lg bg-blue-500/5 border border-blue-500/10 text-blue-400 hover:bg-blue-500/10 transition-all group">
                                 <Building2 size={16} className="group-hover:scale-110 transition-transform" />
-                                <span className="text-[11px] font-bold uppercase">Office Demo</span>
+                                <span className="text-[11px] font-bold uppercase">Vibe Office Portal</span>
                             </Link>
-                            <Link href="/attack" target="_blank" className="flex items-center space-x-3 p-2 rounded-lg bg-emerald-500/5 border border-emerald-500/10 text-emerald-400 hover:bg-emerald-500/10 transition-all group">
+                            <Link href="https://vibe-simulator.vercel.app" target="_blank" className="flex items-center space-x-3 p-2 rounded-lg bg-emerald-500/5 border border-emerald-500/10 text-emerald-400 hover:bg-emerald-500/10 transition-all group">
                                 <Terminal size={16} className="group-hover:scale-110 transition-transform animate-pulse" />
-                                <span className="text-[11px] font-bold uppercase">Attack Simulator</span>
+                                <span className="text-[11px] font-bold uppercase">Vibe Storm Simulator</span>
                             </Link>
                         </div>
                     </div>
